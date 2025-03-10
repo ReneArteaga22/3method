@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de Runge-Kutta</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #ff6f61;
+            font-size: 32px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .instructions {
+            text-align: left;
+            background: #eef4ff;
+            padding: 20px;
+            border-left: 5px solid #2575fc;
+            margin-bottom: 25px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .instructions h2 {
+            color: #2575fc;
+            margin-top: 0;
+        }
+
+        .instructions ul {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin: 10px 0;
+        }
+
+        .instructions code {
+            background: #f4f4f4;
+            padding: 3px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background: #2575fc;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #1a5bbf;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"]:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            margin: 25px auto;
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2575fc;
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 24px;
+            background: #2575fc;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #1a5bbf;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Método de Runge-Kutta</h1>
+
+        <!-- Instrucciones -->
+        <div class="instructions">
+            <h2>Instrucciones para Ingresar los Datos:</h2>
+            <ul>
+                <li><strong>Función f(x, y):</strong> Ingresa la ecuación diferencial en términos de <code>x</code> e <code>y</code>. Usa operadores y funciones matemáticas de Python, como <code>sin(x)</code>, <code>cos(x)</code>, <code>exp(x)</code>, <code>log(x)</code>, etc. Asegúrate de usar <code>**</code> para exponentes (por ejemplo, <code>x**2</code> para x al cuadrado).</li>
+                <li><strong>x0:</strong> Valor inicial de <code>x</code> (por ejemplo, 0).</li>
+                <li><strong>y0:</strong> Valor inicial de <code>y</code> (por ejemplo, 1).</li>
+                <li><strong>h (paso):</strong> Tamaño del paso (por ejemplo, 0.1).</li>
+                <li><strong>xf:</strong> Valor final de <code>x</code> hasta el cual se calculará la solución (por ejemplo, 1.0).</li>
+                <li><strong>Decimales:</strong> Número de decimales para redondear los resultados (por ejemplo, 4).</li>
+            </ul>
+
+            <h2>Ejemplos de Sintaxis:</h2>
+            <ul>
+                <li><strong>Suma de cuadrados:</strong> <code>x**2 + y</code></li>
+                <li><strong>Logaritmo:</strong> <code>log(x)</code></li>
+                <li><strong>Exponencial:</strong> <code>exp(x)</code></li>
+                <li><strong>Funciones trigonométricas:</strong> <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code></li>
+                <li><strong>Funciones hiperbólicas:</strong> <code>tanh(x)</code></li>
+            </ul>
+
+            <h2>¿Cómo funciona el algoritmo?</h2>
+            <p>El método de Runge-Kutta es un algoritmo numérico para resolver ecuaciones diferenciales de primer orden. Calcula una aproximación de la solución en varios puntos utilizando coeficientes <code>k1</code>, <code>k2</code>, <code>k3</code> y <code>k4</code>.</p>
+        </div>
+
+        <!-- Formulario -->
+        <form method="POST">
+            <label>Función f(x, y):</label>
+            <input type="text" name="funcion" required placeholder="Ejemplo: x + y"><br>
+            <label>x0:</label><br>
+            <input type="text" name="x0" required placeholder="Valor inicial de x (Ejemplo: 0)"><br>
+            <label>y0:</label><br>
+            <input type="text" name="y0" required placeholder="Valor inicial de y (Ejemplo: 1)"><br>
+            <label>h (paso):</label><br>
+            <input type="text" name="h" required placeholder="Tamaño del paso (Ejemplo: 0.1)"><br>
+            <label>xf:</label><br>
+            <input type="text" name="xf" required placeholder="Valor final de x (Ejemplo: 1.0)"><br>
+            <label>Decimales:</label><br>
+            <input type="text" name="decimales" required placeholder="Número de decimales (Ejemplo: 4)"><br>
+            <input type="submit" value="Calcular">
+        </form>
+
+        <!-- Resultados -->
+        {% if resultado %}
+            <h2>Resultados:</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Iteración</th>
+                            <th>x</th>
+                            <th>y</th>
+                            <th>Error Absoluto</th>
+                            <th>k1</th>
+                            <th>k2</th>
+                            <th>k3</th>
+                            <th>k4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in resultado %}
+                            <tr>
+                                <td>{{ row.i }}</td>
+                                <td>{{ row.x }}</td>
+                                <td>{{ row.y }}</td>
+                                <td>
+                                    {% if row.error_absoluto is not none %}
+                                        {{ row.error_absoluto }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>{{ row.k1 }}</td>
+                                <td>{{ row.k2 }}</td>
+                                <td>{{ row.k3 }}</td>
+                                <td>{{ row.k4 }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        <!-- Botón para volver -->
+        <a href="/" class="btn">Volver</a>
+    </div>
+</body>
+</html>

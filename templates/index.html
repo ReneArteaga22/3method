@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Métodos Numéricos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px; /* Contenedor más grande */
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #ff6f61; /* Nuevo color para el título */
+            font-size: 32px; /* Tamaño de fuente más grande */
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin: 20px 0; /* Más espacio entre los botones */
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #ff6f61; /* Nuevo color para los botones */
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px; /* Tamaño de fuente más grande */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        .btn:hover {
+            background: #ff3b2f; /* Color más oscuro al hacer hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Efecto de hover en el contenedor */
+        .container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Métodos Numéricos</h1>
+    <ul>
+        <li><a href="/euler" class="btn">Euler Mejorado</a></li>
+        <li><a href="/runge-kutta" class="btn">Runge-Kutta</a></li>
+        <li><a href="/newton-raphson" class="btn">Newton-Raphson</a></li>
+    </ul>
+</div>
+
+</body>
+</html>
